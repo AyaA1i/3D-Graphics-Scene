@@ -1,74 +1,316 @@
 #include <Windows.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include<cmath>
 #pragma comment(lib,"opengl32.lib")
 #pragma comment(lib,"glu32.lib")
 
 GLfloat doorAngle = 0.0f;
 GLfloat windowAngle = 0.0f;
+GLfloat BycAngle = 0.0f;
+GLfloat translateByc = 0.0f;
+GLfloat wheelLeftAngle = 0.0f;
+GLfloat wheelRightAngle = 0.0f;
+GLfloat wheelAngle = 0.0f;
 float cameraX = 0.0f, cameraY = 0.0f, cameraZ = 5.0f;
-void DrawByc() {
+const float PI = 3.14159265358979323846;
 
-    // first part (المكعب الاول النايم )
+void DrawByc() {
+    glTranslatef(translateByc, 0, 0);
+    glRotatef(wheelAngle, 0.0, 1.0, 0.0);
+
+    glPushMatrix();
+    // horizontal down
     //back
-    glColor3f(1, 0, 1); 
+    glColor3f(1, 0, 1);
     glBegin(GL_POLYGON);
-    glVertex3f(-0.2, -0.8, 3.0); // Top-left
-    glVertex3f(0.2, -0.8, 3.0);  // Top-right
-    glVertex3f(0.2, -0.7 ,3.0 );   // Bottom-right
-    glVertex3f(-0.2, -0.7,3.0);  // Bottom-left
+    glVertex3f(-0.3, -0.65, 3.0); // Top-left
+    glVertex3f(0.3, -0.65, 3.0);  // Top-right
+    glVertex3f(0.3, -0.55, 3.0);   // Bottom-right
+    glVertex3f(-0.3, -0.55, 3.0);  // Bottom-left
     glEnd();
 
     //front
     glColor3f(1, 0, 1);
     glBegin(GL_POLYGON);
-    glVertex3f(-0.2, -0.8, 3.1); // Top-left
-    glVertex3f(0.2, -0.8, 3.1);  // Top-right
-    glVertex3f(0.2, -0.7, 3.1);   // Bottom-right
-    glVertex3f(-0.2, -0.7,3.1);  // Bottom-left
+    glVertex3f(-0.3, -0.65, 3.01); // Top-left
+    glVertex3f(0.3, -0.65, 3.05);  // Top-right
+    glVertex3f(0.3, -0.55, 3.05);   // Bottom-right
+    glVertex3f(-0.3, -0.55, 3.05);  // Bottom-left
     glEnd();
 
 
     // left
     glColor3f(1, 0, 1);
     glBegin(GL_POLYGON);
-    glVertex3f(-0.2, -0.8, 3.0); // Top-left
-    glVertex3f(-0.2, -0.7, 3.0);  // Bottom-left
-    glVertex3f(-0.2, -0.7, 3.1);  // Bottom-right
-    glVertex3f(-0.2, -0.8, 3.1); // Top-right
+    glVertex3f(-0.3, -0.65, 3.0); // Top-left
+    glVertex3f(-0.3, -0.55, 3.0);  // Bottom-left
+    glVertex3f(-0.3, -0.55, 3.05);  // Bottom-right
+    glVertex3f(-0.3, -0.65, 3.05); // Top-right
     glEnd();
 
 
     //right
     glColor3f(1, 0, 1);
     glBegin(GL_POLYGON);
-    glVertex3f(0.2, -0.8, 3.0);  // Top-right
-    glVertex3f(0.2, -0.7, 3.0);   // Bottom-right
-    glVertex3f(0.2, -0.7, 3.1);  // Top-right
-    glVertex3f(0.2, -0.8, 3.1);   // Bottom-right
+    glVertex3f(0.3, -0.65, 3.0);  // Top-right
+    glVertex3f(0.3, -0.55, 3.0);   // Bottom-right
+    glVertex3f(0.3, -0.55, 3.05);  // Top-right
+    glVertex3f(0.3, -0.65, 3.05);   // Bottom-right
     glEnd();
 
     //top
     glColor3f(1, 0, 1);
     glBegin(GL_POLYGON);
-    glVertex3f(-0.2, -0.7, 3.0);  // Top-right
-    glVertex3f(-0.2, -0.7, 3.1);   // Bottom-right
-    glVertex3f(0.2, -0.7, 3.1);  // Top-right
-    glVertex3f(0.2, -0.7, 3.0);   // Bottom-right
+    glVertex3f(-0.3, -0.55, 3.0);  // Top-right
+    glVertex3f(-0.3, -0.55, 3.05);   // Bottom-right
+    glVertex3f(0.3, -0.55, 3.05);  // Top-right
+    glVertex3f(0.3, -0.55, 3.0);   // Bottom-right
     glEnd();
 
     //Bottom
     glColor3f(1, 0, 1);
     glBegin(GL_POLYGON);
-    glVertex3f(-0.2, -0.8, 3.0);  // Top-right
-    glVertex3f(-0.2, -0.8, 3.1);   // Bottom-right
-    glVertex3f(0.2, -0.8, 3.1);  // Top-right
-    glVertex3f(0.2, -0.8, 3.0);   // Bottom-right
+    glVertex3f(-0.3, -0.65, 3.0);  // Top-right
+    glVertex3f(-0.3, -0.65, 3.05);   // Bottom-right
+    glVertex3f(0.3, -0.65, 3.05);  // Top-right
+    glVertex3f(0.3, -0.65, 3.0);   // Bottom-right
+    glEnd();
+
+    //////////////////////////////////////////////////////////////////////
+
+    //  vertical left 
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.2, -0.65, 3.0);  // Top-right
+    glVertex3f(-0.1, -0.65, 3.0);  // Top-right
+    glVertex3f(-0.1, -0.65, 3.05);   // Bottom-right
+    glVertex3f(-0.2, -0.65, 3.05);   // Bottom-right
+    glEnd();
+
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.2, -0.20, 3.0);  // Top-right
+    glVertex3f(-0.1, -0.20, 3.0);  // Top-right
+    glVertex3f(-0.1, -0.20, 3.05);   // Bottom-right
+    glVertex3f(-0.2, -0.20, 3.05);   // Bottom-right
+    glEnd();
+
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.2, -0.65, 3.0);  // Top-right
+    glVertex3f(-0.2, -0.65, 3.05);   // Bottom-right
+    glVertex3f(-0.2, -0.2, 3.05);   // Bottom-right
+    glVertex3f(-0.2, -0.2, 3.0);  // Top-right
+    glEnd();
+
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.1, -0.20, 3.05);   // Bottom-right
+    glVertex3f(-0.2, -0.20, 3.05);   // Bottom-right
+    glVertex3f(-0.2, -0.65, 3.05);
+    glVertex3f(-0.1, -0.65, 3.05);   // Bottom-right
+    glEnd();
+
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.1, -0.20, 3.0);
+    glVertex3f(-0.2, -0.20, 3.0);
+    glVertex3f(-0.2, -0.65, 3.0);
+    glVertex3f(-0.1, -0.65, 3.0);
+    glEnd();
+
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.1, -0.20, 3.0);
+    glVertex3f(-0.1, -0.20, 3.05);
+    glVertex3f(-0.1, -0.65, 3.05);
+    glVertex3f(-0.1, -0.65, 3.0);
+    glEnd();
+
+    //////////////////////////////////////////////////
+    // horizontal up
+        //back
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.3, -0.4, 3.0); // Top-left
+    glVertex3f(0.3, -0.4, 3.0);  // Top-right
+    glVertex3f(0.3, -0.3, 3.0);   // Bottom-right
+    glVertex3f(-0.3, -0.3, 3.0);  // Bottom-left
+    glEnd();
+
+    //front
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.3, -0.4, 3.1); // Top-left
+    glVertex3f(0.3, -0.4, 3.1);  // Top-right
+    glVertex3f(0.3, -0.3, 3.1);   // Bottom-right
+    glVertex3f(-0.3, -0.3, 3.1);  // Bottom-left
+    glEnd();
+
+    // left
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.3, -0.4, 3.0); // Top-left
+    glVertex3f(-0.3, -0.3, 3.0);  // Bottom-left
+    glVertex3f(-0.3, -0.3, 3.1);  // Bottom-right
+    glVertex3f(-0.3, -0.4, 3.1); // Top-right
     glEnd();
 
 
+    //right
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(0.3, -0.4, 3.0);  // Top-right
+    glVertex3f(0.3, -0.3, 3.0);   // Bottom-right
+    glVertex3f(0.3, -0.3, 3.1);  // Top-right
+    glVertex3f(0.3, -0.4, 3.1);   // Bottom-right
+    glEnd();
 
+    //top
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.3, -0.3, 3.0);  // Top-right
+    glVertex3f(-0.3, -0.3, 3.1);   // Bottom-right
+    glVertex3f(0.3, -0.3, 3.1);  // Top-right
+    glVertex3f(0.3, -0.3, 3.0);   // Bottom-right
+    glEnd();
+
+    //Bottom
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.3, -0.4, 3.0);  // Top-right
+    glVertex3f(-0.3, -0.4, 3.1);   // Bottom-right
+    glVertex3f(0.3, -0.4, 3.1);  // Top-right
+    glVertex3f(0.3, -0.4, 3.0);   // Bottom-right
+    glEnd();
+
+    /////////////////////////////////////////////////
+
+    // vertical right
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(0.25, -0.65, 3.0);  // Top-right
+    glVertex3f(0.18, -0.65, 3.0);  // Top-right
+    glVertex3f(0.18, -0.65, 3.05);   // Bottom-right
+    glVertex3f(0.25, -0.65, 3.05);   // Bottom-right
+    glEnd();
+
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(0.25, -0.15, 3.0);  // Top-right
+    glVertex3f(0.18, -0.15, 3.0);  // Top-right
+    glVertex3f(0.18, -0.15, 3.05);   // Bottom-right
+    glVertex3f(0.25, -0.15, 3.05);   // Bottom-right
+    glEnd();
+
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(0.25, -0.65, 3.0);  // Top-right
+    glVertex3f(0.25, -0.65, 3.05);   // Bottom-right
+    glVertex3f(0.25, -0.15, 3.05);   // Bottom-right
+    glVertex3f(0.25, -0.15, 3.0);  // Top-right
+    glEnd();
+
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(0.18, -0.15, 3.05);   // Bottom-right
+    glVertex3f(0.25, -0.15, 3.05);   // Bottom-right
+    glVertex3f(0.25, -0.65, 3.05);
+    glVertex3f(0.18, -0.65, 3.05);   // Bottom-right
+    glEnd();
+
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(0.18, -0.15, 3.0);
+    glVertex3f(0.25, -0.15, 3.0);
+    glVertex3f(0.25, -0.65, 3.0);
+    glVertex3f(0.18, -0.65, 3.0);
+    glEnd();
+
+    glColor3f(1, 0, 1);
+    glBegin(GL_POLYGON);
+    glVertex3f(0.18, -0.15, 3.0);
+    glVertex3f(0.18, -0.15, 3.05);
+    glVertex3f(0.18, -0.65, 3.05);
+    glVertex3f(0.18, -0.65, 3.0);
+    glEnd();
+    glPopMatrix();
+    glPushMatrix();
+
+    //////////////////////////////////////////////////////
+    // Define constants
+    float circleRadius = 0.1; // Radius of the circle
+    float circleThickness = 0.06; // Thickness of the circle
+    float centerX = -0.15; // X-coordinate of the center
+    float centerY = -0.75; // Y-coordinate of the center
+    float centerZ = 3.03; // Z-coordinate of the center
+
+    glColor3f(1.0, 0.0, 0.0);
+
+    // Translate to the center position
+    glTranslatef(centerX, centerY, centerZ); // Move the hinge back to its original position
+    glRotatef(wheelLeftAngle, 0.0f, 1.0f, 0.0f);
+    glRotatef(BycAngle, 0.0f, 0.0f, 1.0f); 
+ 
+    // Draw the wheel rim as a 3D circle
+    glBegin(GL_QUAD_STRIP);
+    for (int i = 0; i <= 36; ++i) {
+        float theta = 2.0f * PI * float(i) / float(36);
+        float x = circleRadius * cos(theta);
+        float y = circleRadius * sin(theta);
+        // Vertices on the top face of the circle
+        glVertex3f(x, y, -circleThickness / 2.0);
+        glVertex3f(x, y, circleThickness / 2.0);
+    }
+    glEnd();
+    glBegin(GL_LINES);
+    for (int i = 0; i <= 12; ++i) {
+        float theta = 2.0f * PI * float(i) / float(12);
+        float x = circleRadius * cos(theta);
+        float y = circleRadius * sin(theta);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(x, y, 0.0);
+    }
+    glEnd();
+    glPopMatrix();
+
+    ////////////////////////////////////////////////
+    glPushMatrix();
+    centerX = 0.15; // X-coordinate of the center
+
+    glColor3f(1.0, 0.0, 0.0);
+    // Translate to the center position
+    glTranslatef(centerX, centerY, centerZ); // Move the hinge back to its original position
+    glRotatef(wheelRightAngle, 0.0f, 1.0f, 0.0f);
+    glRotatef(BycAngle, 0.0f, 0.0f, 1.0f);
+
+
+    // Draw the wheel rim as a 3D circle
+    glBegin(GL_QUAD_STRIP);
+    for (int i = 0; i <= 36; ++i) {
+        float theta = 2.0f * PI * float(i) / float(36);
+        float x = circleRadius * cos(theta);
+        float y = circleRadius * sin(theta);
+        // Vertices on the top face of the circle
+        glVertex3f(x, y, -circleThickness / 2.0);
+        glVertex3f(x, y, circleThickness / 2.0);
+    }
+    glEnd();
+    glBegin(GL_LINES);
+    for (int i = 0; i <= 12; ++i) {
+        float theta = 2.0f * PI * float(i) / float(12);
+        float x = circleRadius * cos(theta);
+        float y = circleRadius * sin(theta);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(x, y, 0.0);
+    }
+    glEnd();
+    glPopMatrix();
 }
+
+
+
 void DrawHome()
 {
     // Back face
@@ -327,7 +569,8 @@ void DrawScene()
     glFlush();
 }
 
-LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
+
+LRESULT WINAPI  WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
 {
     static PIXELFORMATDESCRIPTOR pfd = {
         sizeof(PIXELFORMATDESCRIPTOR),   // size of this pfd  
@@ -353,8 +596,17 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
     static HGLRC hgl;
     static int w, h;
     int  iPixelFormat;
+    bool Animation = true;
+
     switch (m)
     {
+    case WM_TIMER:
+        wheelAngle += 10.0;
+        if (wheelAngle >= 360.0)
+            wheelAngle -= 360.0;
+        DrawScene();
+        SwapBuffers(hdc);
+        break;
     case WM_CREATE:
         hdc = GetDC(hwnd);
         iPixelFormat = ChoosePixelFormat(hdc, &pfd);
@@ -381,6 +633,7 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
         glFlush();
         SwapBuffers(hdc);
         break;
+
     case WM_KEYDOWN:
         switch (wp) {
         case 'C': // Move camera left
@@ -414,11 +667,34 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
         else if (GetAsyncKeyState('A') & 0x8000) {
             windowAngle = 120.0f;
         }
-        else if (GetAsyncKeyState('B') & 0x8000) {
+        else if (GetAsyncKeyState('K') & 0x8000) {
             windowAngle = 0.0f;
+        }
+        else if (GetAsyncKeyState('F') & 0x8000) {
+            translateByc += 0.005;
+            BycAngle += 30.0;
+            
+        }
+        else if (GetAsyncKeyState('B') & 0x8000) {
+            translateByc -= 0.005;
+            BycAngle -= 30.0;
+        }
+        else if (GetAsyncKeyState('R') & 0x8000) {
+            wheelRightAngle = 30.0;
+        }
+        else if (GetAsyncKeyState('L') & 0x8000) {
+            wheelLeftAngle = 30.0;
+
         }
         DrawScene();
         SwapBuffers(hdc);
+        break;
+    //case WM_LBUTTONDOWN:
+        //SetTimer(hwnd, 1, 500, NULL);
+        //break;
+   
+    case WM_RBUTTONDOWN:
+        //KillTimer(hwnd ,1);
         break;
     case WM_DESTROY:
         wglMakeCurrent(NULL, NULL);
@@ -426,15 +702,9 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
         ReleaseDC(hwnd, hdc);
         PostQuitMessage(0);
         break;
-    
-
     default:
         return DefWindowProc(hwnd, m, wp, lp);
     }
-
-    // Fix 
-
-
     return 0;
 }
 
@@ -456,6 +726,7 @@ int APIENTRY WinMain(HINSTANCE hi, HINSTANCE pi, LPSTR c, int ns)
     HWND hwnd = CreateWindow(L"MyClass", L"3D Graphics Scene", WS_OVERLAPPEDWINDOW, 0, 0, 600, 400, NULL, NULL, hi, 0);
     ShowWindow(hwnd, ns);
     UpdateWindow(hwnd);
+    SetTimer(hwnd, 1, 60, NULL);
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);
