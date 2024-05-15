@@ -1,17 +1,14 @@
-
 #include <Windows.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #pragma comment(lib,"opengl32.lib")
 #pragma comment(lib,"glu32.lib")
 
-GLfloat doorAngle = 0.0f; // Initial angle of the door
+GLfloat doorAngle = 0.0f;
+GLfloat windowAngle = 0.0f;
 
 void DrawHome()
 {
-    glMatrixMode(GL_MODELVIEW);
-    glTranslated(0, 0, -3);
-
     // Back face
     glColor3f(0, 1, 0); // Green
     glBegin(GL_POLYGON);
@@ -60,28 +57,212 @@ void DrawHome()
 
 void DrawDoor()
 {
-    // Rotate the door around its hinge
-    glTranslatef(0.0f, -0.45f, 0.51f); // Move the hinge to the origin
-    glRotated(doorAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
-    glTranslatef(0.0f, 0.45f, -0.51f); // Move the hinge back to its original position
+    glTranslatef(0.2f, 0, 0.51f); // Move the hinge to the origin
+    glRotatef(doorAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
+    glTranslatef(-0.2f, 0, 0); // Move the hinge back to its original position
     // Door
     glColor3f(1, 1, 1); // white
     glBegin(GL_POLYGON);
-    glVertex3f(-0.20, -0.1, 0.51); // Top-left
-    glVertex3f(0.20, -0.1, 0.51);  // Top-right
-    glVertex3f(0.20, -0.8, 0.51); // Bottom-right
-    glVertex3f(-0.20, -0.8, 0.51);  // Bottom-left
+    glVertex3f(-0.20, -0.1, 0); // Top-left
+    glVertex3f(0.20, -0.1, 0);  // Top-right
+    glVertex3f(0.20, -0.8, 0); // Bottom-right
+    glVertex3f(-0.20, -0.8, 0);  // Bottom-left
     glEnd();
 
 }
+void DrawDoorShade() {
+    // Draw shade behind the door
+    glColor4f(0.1f, 0.1f, 0.1f, 0.5f); // Semi-transparent black
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.20, -0.1, 0.50); // Top-left
+    glVertex3f(0.20, -0.1, 0.50);  // Top-right
+    glVertex3f(0.20, -0.8, 0.50); // Bottom-right
+    glVertex3f(-0.20, -0.8, 0.50);  // Bottom-left
+    glEnd();
+}
+
+
+void DrawBackground(double x , double y) {
+    glPushMatrix();
+    glColor4f(0.1f, 0.1f, 0.1f, 0.5f); // gray background color
+    glBegin(GL_POLYGON);
+    glVertex3f(0.2f * x, 0.1f + y, 0.5f); // Bottom-left
+    glVertex3f(0.4f * x, 0.1f + y, 0.5f); // Bottom-right
+    glVertex3f(0.4f * x, 0.3f + y, 0.5f); // Top-right
+    glVertex3f(0.2f * x, 0.3f + y, 0.5f); // Top-left
+    glEnd();
+    glPopMatrix();
+}
+
+
+void DrawFirstWindowFirstPart() {
+    glPushMatrix();
+    glTranslatef(0.4f, 0, 0.51f); // Move the hinge to the origin
+    glRotatef(windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
+    glTranslatef(-0.4f, 0, 0); // Move the hinge back to its original position
+    glColor3f(1, 1, 1); // white
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 0.1, 0); // Top-left
+    glVertex3f(0.3, 0.1, 0);  // Top-right
+    glVertex3f(0.3, 0.3, 0); // Bottom-right
+    glVertex3f(0.4, 0.3, 0);  // Bottom-left
+    glEnd();
+    glPopMatrix();
+}
+
+void DrawFirstWindowSecondPart() {
+
+    glPushMatrix();
+    glTranslatef(0.2f, 0, 0.51f); // Move the hinge to the origin
+    glRotatef(-windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
+    glTranslatef(-0.2f, 0, 0); // Move the hinge back to its original position
+    // Door
+    glColor3f(1, 0, 1); // white
+    glBegin(GL_POLYGON);
+    glVertex3f(0.2, 0.1, 0); // Top-left
+    glVertex3f(0.3, 0.1, 0);  // Top-right
+    glVertex3f(0.3, 0.3, 0); // Bottom-right
+    glVertex3f(0.2, 0.3, 0);  // Bottom-left
+    glEnd();
+    glPopMatrix();
+}
+
+
+void DrawSecondWindowFirstPart() {
+    glPushMatrix();
+    glTranslatef(-0.4f, 0, 0.51f); // Move the hinge to the origin
+    glRotatef(-windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
+    glTranslatef(0.4f, 0, 0); // Move the hinge back to its original position
+    // Door
+    glColor3f(1, 1, 1); // white
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.4, 0.1, 0); // Top-left
+    glVertex3f(-0.3, 0.1, 0);  // Top-right
+    glVertex3f(-0.3, 0.3, 0); // Bottom-right
+    glVertex3f(-0.4, 0.3, 0);  // Bottom-left
+    glEnd();
+    glPopMatrix();
+}
+
+void DrawSecondWindowSecondPart() {
+    glPushMatrix();
+    glTranslatef(-0.2f, 0, 0.51f); // Move the hinge to the origin
+    glRotatef(windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
+    glTranslatef(0.2f, 0, 0); // Move the hinge back to its original position
+    // Door
+    glColor3f(1, 0, 1); // white
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.2, 0.1, 0); // Top-left
+    glVertex3f(-0.3, 0.1, 0);  // Top-right
+    glVertex3f(-0.3, 0.3, 0); // Bottom-right
+    glVertex3f(-0.2, 0.3, 0);  // Bottom-left
+    glEnd();
+    glPopMatrix();
+}
+
+void DrawThirdWindowFirstPart() {
+    glPushMatrix();
+    glTranslatef(0.4f, 0, 0.51f); // Move the hinge to the origin
+    glRotatef(windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
+    glTranslatef(-0.4f, 0, 0); // Move the hinge back to its original position
+    // Door
+    glColor3f(1, 1, 1); // white
+    glBegin(GL_POLYGON);
+    glVertex3f(0.4, 0.4, 0); // Top-left
+    glVertex3f(0.3, 0.4, 0);  // Top-right
+    glVertex3f(0.3, 0.6, 0); // Bottom-right
+    glVertex3f(0.4, 0.6, 0);  // Bottom-left
+    glEnd();
+    glPopMatrix();
+}
+
+void DrawThirdWindowSecondPart() {
+    glPushMatrix();
+    glTranslatef(0.2f, 0, 0.51f); // Move the hinge to the origin
+    glRotatef(-windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
+    glTranslatef(-0.2f, 0, 0); // Move the hinge back to its original position
+    // Door
+    glColor3f(1, 0, 1); // white
+    glBegin(GL_POLYGON);
+    glVertex3f(0.2, 0.4, 0); // Top-left
+    glVertex3f(0.3, 0.4, 0);  // Top-right
+    glVertex3f(0.3, 0.6, 0); // Bottom-right
+    glVertex3f(0.2, 0.6, 0);  // Bottom-left
+    glEnd();
+    glPopMatrix();
+}
+
+void DrawFourthWindowFirstPart() {
+    glPushMatrix();
+    glTranslatef(-0.4f, 0, 0.51f); // Move the hinge to the origin
+    glRotatef(-windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
+    glTranslatef(0.4f, 0, 0); // Move the hinge back to its original position
+    // Door
+    glColor3f(1, 1, 1); // white
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.4, 0.4, 0); // Top-left
+    glVertex3f(-0.3, 0.4, 0);  // Top-right
+    glVertex3f(-0.3, 0.6, 0); // Bottom-right
+    glVertex3f(-0.4, 0.6, 0);  // Bottom-left
+    glEnd();
+    glPopMatrix();
+}
+
+void DrawFourthWindowSecondPart() {
+    glPushMatrix();
+    glTranslatef(-0.2f, 0, 0.51f); // Move the hinge to the origin
+    glRotatef(windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
+    glTranslatef(0.2f, 0, 0); // Move the hinge back to its original position
+    // Door
+    glColor3f(1, 0, 1); // white
+    glBegin(GL_POLYGON);
+    glVertex3f(-0.2, 0.4, 0); // Top-left
+    glVertex3f(-0.3, 0.4, 0);  // Top-right
+    glVertex3f(-0.3, 0.6, 0); // Bottom-right
+    glVertex3f(-0.2, 0.6, 0);  // Bottom-left
+    glEnd();
+    glPopMatrix();
+}
+
+
+void DrawWindow() {
+    // first window
+    DrawBackground(1, 0 ); 
+    DrawFirstWindowFirstPart();
+    DrawFirstWindowSecondPart();
+
+    // second window
+    DrawBackground(-1, 0);
+    DrawSecondWindowFirstPart();
+    DrawSecondWindowSecondPart();
+
+    // third window
+    DrawBackground(1, 0.3);
+    DrawThirdWindowFirstPart();
+    DrawThirdWindowSecondPart();
+
+    // fourth window
+    DrawBackground(-1, 0.3);
+    DrawFourthWindowFirstPart();
+    DrawFourthWindowSecondPart();
+}
+
+
 
 void DrawScene()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glTranslated(0, 0, -3);
+    //glRotated(60, 1, 0, 0);
     DrawHome();
     glPushMatrix();
+    DrawWindow();
+    glPopMatrix();
+    glPushMatrix();
+    DrawDoorShade();
     DrawDoor();
     glPopMatrix();
     glFlush();
@@ -121,8 +302,9 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
         SetPixelFormat(hdc, iPixelFormat, &pfd);
         hgl = wglCreateContext(hdc);
         wglMakeCurrent(hdc, hgl);
-        glClearColor(0, 0, 0, 0);
+        glClearColor(0, 1, 0, 0);
         glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LEQUAL);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         gluPerspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
@@ -136,6 +318,19 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
         SwapBuffers(hdc);
         break;
     case WM_PAINT:
+
+        if (GetAsyncKeyState('X') & 0x8000) {
+            doorAngle = 120.0f;
+        }
+        else if (GetAsyncKeyState('Y') & 0x8000) {
+            doorAngle = 0.0f;
+        }
+        else if (GetAsyncKeyState('A') & 0x8000) {
+            windowAngle = 120.0f;
+        }
+        else if (GetAsyncKeyState('B') & 0x8000) {
+            windowAngle = 0.0f;
+        }
         DrawScene();
         SwapBuffers(hdc);
         break;
@@ -148,8 +343,13 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
     default:
         return DefWindowProc(hwnd, m, wp, lp);
     }
+
+    // Fix 
+
+
     return 0;
 }
+
 
 int APIENTRY WinMain(HINSTANCE hi, HINSTANCE pi, LPSTR c, int ns)
 {
@@ -172,16 +372,6 @@ int APIENTRY WinMain(HINSTANCE hi, HINSTANCE pi, LPSTR c, int ns)
     while (GetMessage(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
-        if (msg.message == WM_KEYDOWN) {
-            if (msg.wParam == 'o') {
-                doorAngle += 10.0f;
-                DrawScene();
-            }
-            else if (msg.wParam == 'O') {
-                doorAngle -= 10.0f;
-                DrawScene();
-            }
-        }
     }
     return 0;
 }
