@@ -15,525 +15,263 @@ GLfloat wheelRightAngle = 0.0f;
 GLfloat wheelAngle = 0.0f;
 float cameraX = 0.0f, cameraY = 0.0f, cameraZ = 5.0f;
 const float PI = 3.14159265358979323846;
+void DrawCuboid(float width, float height, float depth, float r, float g, float b, float a);
+void DrawWheel(float centerX , float wheelAngle) {
+    glPushMatrix();
+    float circleRadius = 0.1; 
+    float circleThickness = 0.04; 
+    float centerY = -0.75;
+    float centerZ = 3.05; 
 
-
+    glColor3f(0,0,0);
+    glTranslatef(centerX, centerY, centerZ); 
+    glRotatef(wheelAngle, 0.0f, 1.0f, 0.0f);
+    glRotatef(BycAngle, 0.0f, 0.0f, 1.0f);
+    glBegin(GL_QUAD_STRIP);
+    for (int i = 0; i <= 36; ++i) {
+        float theta = 2.0f * PI * float(i) / float(36);
+        float x = circleRadius * cos(theta);
+        float y = circleRadius * sin(theta);
+        // Vertices on the top face of the circle
+        glVertex3f(x, y, -circleThickness / 2.0);
+        glVertex3f(x, y, circleThickness / 2.0);
+    }
+    glEnd();
+    glBegin(GL_LINES);
+    for (int i = 0; i <= 12; ++i) {
+        float theta = 2.0f * PI * float(i) / float(12);
+        float x = circleRadius * cos(theta);
+        float y = circleRadius * sin(theta);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(x, y, 0.0);
+    }
+    glEnd();
+    glPopMatrix();
+}
 void DrawByc() {
     glTranslatef(translateByc, 0, 0);
     glRotatef(wheelAngle, 0.0, 1.0, 0.0);
 
     glPushMatrix();
     // horizontal down
-    //back
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.3, -0.65, 3.0); // Top-left
-    glVertex3f(0.3, -0.65, 3.0);  // Top-right
-    glVertex3f(0.3, -0.55, 3.0);   // Bottom-right
-    glVertex3f(-0.3, -0.55, 3.0);  // Bottom-left
-    glEnd();
-
-    //front
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.3, -0.65, 3.01); // Top-left
-    glVertex3f(0.3, -0.65, 3.05);  // Top-right
-    glVertex3f(0.3, -0.55, 3.05);   // Bottom-right
-    glVertex3f(-0.3, -0.55, 3.05);  // Bottom-left
-    glEnd();
-
-
-    // left
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.3, -0.65, 3.0); // Top-left
-    glVertex3f(-0.3, -0.55, 3.0);  // Bottom-left
-    glVertex3f(-0.3, -0.55, 3.05);  // Bottom-right
-    glVertex3f(-0.3, -0.65, 3.05); // Top-right
-    glEnd();
-
-
-    //right
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(0.3, -0.65, 3.0);  // Top-right
-    glVertex3f(0.3, -0.55, 3.0);   // Bottom-right
-    glVertex3f(0.3, -0.55, 3.05);  // Top-right
-    glVertex3f(0.3, -0.65, 3.05);   // Bottom-right
-    glEnd();
-
-    //top
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.3, -0.55, 3.0);  // Top-right
-    glVertex3f(-0.3, -0.55, 3.05);   // Bottom-right
-    glVertex3f(0.3, -0.55, 3.05);  // Top-right
-    glVertex3f(0.3, -0.55, 3.0);   // Bottom-right
-    glEnd();
-
-    //Bottom
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.3, -0.65, 3.0);  // Top-right
-    glVertex3f(-0.3, -0.65, 3.05);   // Bottom-right
-    glVertex3f(0.3, -0.65, 3.05);  // Top-right
-    glVertex3f(0.3, -0.65, 3.0);   // Bottom-right
-    glEnd();
-
-    //////////////////////////////////////////////////////////////////////
-
+    glPushMatrix();
+    glTranslatef(0.0f, -0.75f, 3.05f);
+    DrawCuboid(0.6, 0.02, 0.05, 0, 0, 0, 0);
+    glPopMatrix();
     //  vertical left 
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.2, -0.65, 3.0);  // Top-right
-    glVertex3f(-0.1, -0.65, 3.0);  // Top-right
-    glVertex3f(-0.1, -0.65, 3.05);   // Bottom-right
-    glVertex3f(-0.2, -0.65, 3.05);   // Bottom-right
-    glEnd();
+    glPushMatrix();
+    glTranslatef(-0.1f, -0.6f, 3.05f);
+    DrawCuboid(0.02, 0.3, 0.05, 0, 0, 0, 0);
+    glPopMatrix();
 
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.2, -0.20, 3.0);  // Top-right
-    glVertex3f(-0.1, -0.20, 3.0);  // Top-right
-    glVertex3f(-0.1, -0.20, 3.05);   // Bottom-right
-    glVertex3f(-0.2, -0.20, 3.05);   // Bottom-right
-    glEnd();
-
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.2, -0.65, 3.0);  // Top-right
-    glVertex3f(-0.2, -0.65, 3.05);   // Bottom-right
-    glVertex3f(-0.2, -0.2, 3.05);   // Bottom-right
-    glVertex3f(-0.2, -0.2, 3.0);  // Top-right
-    glEnd();
-
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.1, -0.20, 3.05);   // Bottom-right
-    glVertex3f(-0.2, -0.20, 3.05);   // Bottom-right
-    glVertex3f(-0.2, -0.65, 3.05);
-    glVertex3f(-0.1, -0.65, 3.05);   // Bottom-right
-    glEnd();
-
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.1, -0.20, 3.0);
-    glVertex3f(-0.2, -0.20, 3.0);
-    glVertex3f(-0.2, -0.65, 3.0);
-    glVertex3f(-0.1, -0.65, 3.0);
-    glEnd();
-
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.1, -0.20, 3.0);
-    glVertex3f(-0.1, -0.20, 3.05);
-    glVertex3f(-0.1, -0.65, 3.05);
-    glVertex3f(-0.1, -0.65, 3.0);
-    glEnd();
-
-    //////////////////////////////////////////////////
     // horizontal up
-        //back
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.3, -0.4, 3.0); // Top-left
-    glVertex3f(0.3, -0.4, 3.0);  // Top-right
-    glVertex3f(0.3, -0.3, 3.0);   // Bottom-right
-    glVertex3f(-0.3, -0.3, 3.0);  // Bottom-left
-    glEnd();
-
-    //front
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.3, -0.4, 3.1); // Top-left
-    glVertex3f(0.3, -0.4, 3.1);  // Top-right
-    glVertex3f(0.3, -0.3, 3.1);   // Bottom-right
-    glVertex3f(-0.3, -0.3, 3.1);  // Bottom-left
-    glEnd();
-
-    // left
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.3, -0.4, 3.0); // Top-left
-    glVertex3f(-0.3, -0.3, 3.0);  // Bottom-left
-    glVertex3f(-0.3, -0.3, 3.1);  // Bottom-right
-    glVertex3f(-0.3, -0.4, 3.1); // Top-right
-    glEnd();
-
-
-    //right
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(0.3, -0.4, 3.0);  // Top-right
-    glVertex3f(0.3, -0.3, 3.0);   // Bottom-right
-    glVertex3f(0.3, -0.3, 3.1);  // Top-right
-    glVertex3f(0.3, -0.4, 3.1);   // Bottom-right
-    glEnd();
-
-    //top
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.3, -0.3, 3.0);  // Top-right
-    glVertex3f(-0.3, -0.3, 3.1);   // Bottom-right
-    glVertex3f(0.3, -0.3, 3.1);  // Top-right
-    glVertex3f(0.3, -0.3, 3.0);   // Bottom-right
-    glEnd();
-
-    //Bottom
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.3, -0.4, 3.0);  // Top-right
-    glVertex3f(-0.3, -0.4, 3.1);   // Bottom-right
-    glVertex3f(0.3, -0.4, 3.1);  // Top-right
-    glVertex3f(0.3, -0.4, 3.0);   // Bottom-right
-    glEnd();
-
-    /////////////////////////////////////////////////
+    glPushMatrix();
+    glTranslatef(0.0f, -0.54f, 3.05f);
+    DrawCuboid(0.5, 0.05, 0.05, 0, 0, 0, 0);
+    glPopMatrix();
 
     // vertical right
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(0.25, -0.65, 3.0);  // Top-right
-    glVertex3f(0.18, -0.65, 3.0);  // Top-right
-    glVertex3f(0.18, -0.65, 3.05);   // Bottom-right
-    glVertex3f(0.25, -0.65, 3.05);   // Bottom-right
-    glEnd();
-
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(0.25, -0.15, 3.0);  // Top-right
-    glVertex3f(0.18, -0.15, 3.0);  // Top-right
-    glVertex3f(0.18, -0.15, 3.05);   // Bottom-right
-    glVertex3f(0.25, -0.15, 3.05);   // Bottom-right
-    glEnd();
-
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(0.25, -0.65, 3.0);  // Top-right
-    glVertex3f(0.25, -0.65, 3.05);   // Bottom-right
-    glVertex3f(0.25, -0.15, 3.05);   // Bottom-right
-    glVertex3f(0.25, -0.15, 3.0);  // Top-right
-    glEnd();
-
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(0.18, -0.15, 3.05);   // Bottom-right
-    glVertex3f(0.25, -0.15, 3.05);   // Bottom-right
-    glVertex3f(0.25, -0.65, 3.05);
-    glVertex3f(0.18, -0.65, 3.05);   // Bottom-right
-    glEnd();
-
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(0.18, -0.15, 3.0);
-    glVertex3f(0.25, -0.15, 3.0);
-    glVertex3f(0.25, -0.65, 3.0);
-    glVertex3f(0.18, -0.65, 3.0);
-    glEnd();
-
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-    glVertex3f(0.18, -0.15, 3.0);
-    glVertex3f(0.18, -0.15, 3.05);
-    glVertex3f(0.18, -0.65, 3.05);
-    glVertex3f(0.18, -0.65, 3.0);
-    glEnd();
-    glPopMatrix();
     glPushMatrix();
-
-    //////////////////////////////////////////////////////
-    // Define constants
-    float circleRadius = 0.1; // Radius of the circle
-    float circleThickness = 0.06; // Thickness of the circle
-    float centerX = -0.15; // X-coordinate of the center
-    float centerY = -0.75; // Y-coordinate of the center
-    float centerZ = 3.03; // Z-coordinate of the center
-
-    glColor3f(1.0, 0.0, 0.0);
-
-    // Translate to the center position
-    glTranslatef(centerX, centerY, centerZ); // Move the hinge back to its original position
-    glRotatef(wheelLeftAngle, 0.0f, 1.0f, 0.0f);
-    glRotatef(BycAngle, 0.0f, 0.0f, 1.0f);
-
-    // Draw the wheel rim as a 3D circle
-    glBegin(GL_QUAD_STRIP);
-    for (int i = 0; i <= 36; ++i) {
-        float theta = 2.0f * PI * float(i) / float(36);
-        float x = circleRadius * cos(theta);
-        float y = circleRadius * sin(theta);
-        // Vertices on the top face of the circle
-        glVertex3f(x, y, -circleThickness / 2.0);
-        glVertex3f(x, y, circleThickness / 2.0);
-    }
-    glEnd();
-    glBegin(GL_LINES);
-    for (int i = 0; i <= 12; ++i) {
-        float theta = 2.0f * PI * float(i) / float(12);
-        float x = circleRadius * cos(theta);
-        float y = circleRadius * sin(theta);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(x, y, 0.0);
-    }
-    glEnd();
+    glTranslatef(0.2f, -0.53f, 3.05f);
+    DrawCuboid(0.05, 0.45, 0.05, 0, 0, 0, 0);
     glPopMatrix();
 
-    ////////////////////////////////////////////////
+    //wheels
+    DrawWheel(-0.4 , wheelLeftAngle);
+    DrawWheel(0.4 , wheelRightAngle);
+
+    // hand
     glPushMatrix();
-    centerX = 0.15; // X-coordinate of the center
-
-    glColor3f(1.0, 0.0, 0.0);
-    // Translate to the center position
-    glTranslatef(centerX, centerY, centerZ); // Move the hinge back to its original position
-    glRotatef(wheelRightAngle, 0.0f, 1.0f, 0.0f);
-    glRotatef(BycAngle, 0.0f, 0.0f, 1.0f);
-
-
-    // Draw the wheel rim as a 3D circle
-    glBegin(GL_QUAD_STRIP);
-    for (int i = 0; i <= 36; ++i) {
-        float theta = 2.0f * PI * float(i) / float(36);
-        float x = circleRadius * cos(theta);
-        float y = circleRadius * sin(theta);
-        // Vertices on the top face of the circle
-        glVertex3f(x, y, -circleThickness / 2.0);
-        glVertex3f(x, y, circleThickness / 2.0);
-    }
-    glEnd();
-    glBegin(GL_LINES);
-    for (int i = 0; i <= 12; ++i) {
-        float theta = 2.0f * PI * float(i) / float(12);
-        float x = circleRadius * cos(theta);
-        float y = circleRadius * sin(theta);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(x, y, 0.0);
-    }
-    glEnd();
+    glTranslatef(0.2f, -0.33f, 3.05f);
+    DrawCuboid(0.05, 0.05, 0.2, 0.5, 0.4, 0.3, 0.5);
     glPopMatrix();
+
+   
 }
-
+void DrawCuboid(float width, float height, float depth, float r, float g, float b, float a);
 void DrawHome()
 {
-    // Back face
-    glColor3f(1, 0, 1); // Green
+    glColor3f(1, 1, 1); 
     glBegin(GL_POLYGON);
-    glVertex3f(-0.5, 0.8, -0.5); // Top-left
-    glVertex3f(0.5, 0.8, -0.5);  // Top-right
-    glVertex3f(0.5, -0.8, -0.5);   // Bottom-right
-    glVertex3f(-0.5, -0.8, -0.5);  // Bottom-left
+    glVertex3f(-0.5, 0.8, -0.5); 
+    glVertex3f(0.5, 0.8, -0.5);  
+    glVertex3f(0.5, -0.8, -0.5);   
+    glVertex3f(-0.5, -0.8, -0.5); 
     glEnd();
 
-    // Front face
-    glColor3f(1, 0, 0); // Red
+    
+    glColor3f(1, 1, 1); 
     glBegin(GL_POLYGON);
-    glVertex3f(-0.5, 0.8, 0.5); // Top-left
-    glVertex3f(0.5, 0.8, 0.5);  // Top-right
-    glVertex3f(0.5, -0.8, 0.5); // Bottom-right
-    glVertex3f(-0.5, -0.8, 0.5);  // Bottom-left
+    glVertex3f(-0.5, 0.8, 0.5); 
+    glVertex3f(0.5, 0.8, 0.5);  
+    glVertex3f(0.5, -0.8, 0.5); 
+    glVertex3f(-0.5, -0.8, 0.5); 
     glEnd();
 
-    // Right face
-    glColor3f(0, 0, 1); // Blue
+    
+    glColor3f(1, 1, 1); 
     glBegin(GL_POLYGON);
-    glVertex3f(0.5, 0.8, -0.5);   // Top-front
-    glVertex3f(0.5, -0.8, -0.5);  // Bottom-front
-    glVertex3f(0.5, -0.8, 0.5);   // Bottom-back
-    glVertex3f(0.5, 0.8, 0.5);    // Top-back
+    glVertex3f(0.5, 0.8, -0.5);   
+    glVertex3f(0.5, -0.8, -0.5);  
+    glVertex3f(0.5, -0.8, 0.5);   
+    glVertex3f(0.5, 0.8, 0.5);    
     glEnd();
 
-    // Left face
-    glColor3f(1, 1, 0); // Yellow
+   
+    glColor3f(1, 1, 1);
     glBegin(GL_POLYGON);
-    glVertex3f(-0.5, 0.8, -0.5);  // Top-front
-    glVertex3f(-0.5, -0.8, -0.5); // Bottom-front
-    glVertex3f(-0.5, -0.8, 0.5);  // Bottom-back
-    glVertex3f(-0.5, 0.8, 0.5);   // Top-back
+    glVertex3f(-0.5, 0.8, -0.5);  
+    glVertex3f(-0.5, -0.8, -0.5);
+    glVertex3f(-0.5, -0.8, 0.5);  
+    glVertex3f(-0.5, 0.8, 0.5);   
     glEnd();
 
-    // Top face
-    glColor3f(1, 0, 1); // Magenta
+   
+    glColor4f(0.8f, 0.6f, 0.4f, 0.5f); 
     glBegin(GL_POLYGON);
-    glVertex3f(-0.5, 0.8, 0.5);   // Front-left
-    glVertex3f(0.5, 0.8, 0.5);    // Front-right
-    glVertex3f(0.5, 0.8, -0.5);   // Back-right
-    glVertex3f(-0.5, 0.8, -0.5);  // Back-left
+    glVertex3f(-0.5, 0.7, 0.5);   
+    glVertex3f(0.5, 0.7, 0.5);    
+    glVertex3f(0.5, 0.7, -0.5);   
+    glVertex3f(-0.5, 0.7, -0.5);  
     glEnd();
 }
 void DrawDoor()
 {
-    glTranslatef(0.2f, 0, 0.51f); // Move the hinge to the origin
-    glRotatef(doorAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
-    glTranslatef(-0.2f, 0, 0); // Move the hinge back to its original position
-    // Door
-    glColor3f(1, 1, 1); // white
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.20, -0.1, 0); // Top-left
-    glVertex3f(0.20, -0.1, 0);  // Top-right
-    glVertex3f(0.20, -0.8, 0); // Bottom-right
-    glVertex3f(-0.20, -0.8, 0);  // Bottom-left
-    glEnd();
+    glTranslatef((0.4f / 2), -0.45, 0.5f); 
+    glRotatef(doorAngle, 0.0f, 1.0f, 0.0f); 
+    glTranslatef(-(0.4f / 2), 0, 0);
+    DrawCuboid(0.4, 0.7, 0.05, 0.3f, 0.2f, 0.1f, 0.5f);
 
 }
 void DrawDoorShade() {
-    // Draw shade behind the door
-    glColor4f(0.1f, 0.1f, 0.1f, 0.5f); // Semi-transparent black
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.20, -0.1, 0.50); // Top-left
-    glVertex3f(0.20, -0.1, 0.50);  // Top-right
-    glVertex3f(0.20, -0.8, 0.50); // Bottom-right
-    glVertex3f(-0.20, -0.8, 0.50);  // Bottom-left
-    glEnd();
-}
-void DrawBackground(double x, double y) {
     glPushMatrix();
-    glColor4f(0.1f, 0.1f, 0.1f, 0.5f); // gray background color
-    glBegin(GL_POLYGON);
-    glVertex3f(0.2f * x, 0.1f + y, 0.5f); // Bottom-left
-    glVertex3f(0.4f * x, 0.1f + y, 0.5f); // Bottom-right
-    glVertex3f(0.4f * x, 0.3f + y, 0.5f); // Top-right
-    glVertex3f(0.2f * x, 0.3f + y, 0.5f); // Top-left
-    glEnd();
+    glTranslatef(0, -0.45,0.26);
+    DrawCuboid(0.4, 0.7, 0.5, 0, 0, 0, 0);
     glPopMatrix();
 }
-void DrawFirstWindowFirstPart() {
-    glPushMatrix();
-    glTranslatef(0.4f, 0, 0.51f); // Move the hinge to the origin
-    glRotatef(windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
-    glTranslatef(-0.4f, 0, 0); // Move the hinge back to its original position
-    glColor3f(1, 1, 1); // white
-    glBegin(GL_POLYGON);
-    glVertex3f(0.4, 0.1, 0); // Top-left
-    glVertex3f(0.3, 0.1, 0);  // Top-right
-    glVertex3f(0.3, 0.3, 0); // Bottom-right
-    glVertex3f(0.4, 0.3, 0);  // Bottom-left
-    glEnd();
-    glPopMatrix();
-}
-void DrawFirstWindowSecondPart() {
+
+
+void DrawCuboid(float width, float height, float depth , float r , float g , float b , float a)
+{
+    float w = width / 2.0f;
+    float h = height / 2.0f;
+    float d = depth / 2.0f;
 
     glPushMatrix();
-    glTranslatef(0.2f, 0, 0.51f); // Move the hinge to the origin
-    glRotatef(-windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
-    glTranslatef(-0.2f, 0, 0); // Move the hinge back to its original position
-    // Door
-    glColor3f(1, 0, 1); // white
-    glBegin(GL_POLYGON);
-    glVertex3f(0.2, 0.1, 0); // Top-left
-    glVertex3f(0.3, 0.1, 0);  // Top-right
-    glVertex3f(0.3, 0.3, 0); // Bottom-right
-    glVertex3f(0.2, 0.3, 0);  // Bottom-left
+    glBegin(GL_QUADS);
+    // Front face
+    glColor4f(r, g, b, a);
+    glVertex3f(-w, -h, d);
+    glVertex3f(w, -h, d);
+    glVertex3f(w, h, d);
+    glVertex3f(-w, h, d);
+
+    // Back face
+    // 
+    glColor4f(r + 0.5f,g + 0.4f, b + 0.3f, 0.5f);
+    glVertex3f(-w, -h, -d);
+    glVertex3f(-w, h, -d);
+    glVertex3f(w, h, -d);
+    glVertex3f(w, -h, -d);
+
+    // Left face
+    glColor4f(r, g, b, a);
+    glVertex3f(-w, -h, -d);
+    glVertex3f(-w, -h, d);
+    glVertex3f(-w, h, d);
+    glVertex3f(-w, h, -d);
+
+    // Right face
+    glColor4f(r, g, b, a);
+    glVertex3f(w, -h, -d);
+    glVertex3f(w, h, -d);
+    glVertex3f(w, h, d);
+    glVertex3f(w, -h, d);
+
+    // Top face
+    glColor4f(r, g, b, a);
+    glVertex3f(-w, h, -d);
+    glVertex3f(-w, h, d);
+    glVertex3f(w, h, d);
+    glVertex3f(w, h, -d);
+
+    // Bottom face
+    glColor4f(r, g, b, a);
+    glVertex3f(-w, -h, -d);
+    glVertex3f(w, -h, -d);
+    glVertex3f(w, -h, d);
+    glVertex3f(-w, -h, d);
+
     glEnd();
     glPopMatrix();
 }
-void DrawSecondWindowFirstPart() {
+
+
+void DrawBackground(float tx, float ty, float tz){
     glPushMatrix();
-    glTranslatef(-0.4f, 0, 0.51f); // Move the hinge to the origin
-    glRotatef(-windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
-    glTranslatef(0.4f, 0, 0); // Move the hinge back to its original position
-    // Door
-    glColor3f(1, 1, 1); // white
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.4, 0.1, 0); // Top-left
-    glVertex3f(-0.3, 0.1, 0);  // Top-right
-    glVertex3f(-0.3, 0.3, 0); // Bottom-right
-    glVertex3f(-0.4, 0.3, 0);  // Bottom-left
-    glEnd();
+    glColor4f(0.1f, 0.1f, 0.1f, 0.5f);
+    glTranslated(tx, ty, tz-0.11);
+    DrawCuboid(0.1, 0.2, 0.02, 0, 0, 0, 0);
     glPopMatrix();
 }
-void DrawSecondWindowSecondPart() {
-    glPushMatrix();
-    glTranslatef(-0.2f, 0, 0.51f); // Move the hinge to the origin
-    glRotatef(windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
-    glTranslatef(0.2f, 0, 0); // Move the hinge back to its original position
-    // Door
-    glColor3f(1, 0, 1); // white
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.2, 0.1, 0); // Top-left
-    glVertex3f(-0.3, 0.1, 0);  // Top-right
-    glVertex3f(-0.3, 0.3, 0); // Bottom-right
-    glVertex3f(-0.2, 0.3, 0);  // Bottom-left
-    glEnd();
-    glPopMatrix();
-}
-void DrawThirdWindowFirstPart() {
-    glPushMatrix();
-    glTranslatef(0.4f, 0, 0.51f); // Move the hinge to the origin
-    glRotatef(windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
-    glTranslatef(-0.4f, 0, 0); // Move the hinge back to its original position
-    // Door
-    glColor3f(1, 1, 1); // white
-    glBegin(GL_POLYGON);
-    glVertex3f(0.4, 0.4, 0); // Top-left
-    glVertex3f(0.3, 0.4, 0);  // Top-right
-    glVertex3f(0.3, 0.6, 0); // Bottom-right
-    glVertex3f(0.4, 0.6, 0);  // Bottom-left
-    glEnd();
-    glPopMatrix();
-}
-void DrawThirdWindowSecondPart() {
-    glPushMatrix();
-    glTranslatef(0.2f, 0, 0.51f); // Move the hinge to the origin
-    glRotatef(-windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
-    glTranslatef(-0.2f, 0, 0); // Move the hinge back to its original position
-    // Door
-    glColor3f(1, 0, 1); // white
-    glBegin(GL_POLYGON);
-    glVertex3f(0.2, 0.4, 0); // Top-left
-    glVertex3f(0.3, 0.4, 0);  // Top-right
-    glVertex3f(0.3, 0.6, 0); // Bottom-right
-    glVertex3f(0.2, 0.6, 0);  // Bottom-left
-    glEnd();
-    glPopMatrix();
-}
-void DrawFourthWindowFirstPart() {
-    glPushMatrix();
-    glTranslatef(-0.4f, 0, 0.51f); // Move the hinge to the origin
-    glRotatef(-windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
-    glTranslatef(0.4f, 0, 0); // Move the hinge back to its original position
-    // Door
-    glColor3f(1, 1, 1); // white
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.4, 0.4, 0); // Top-left
-    glVertex3f(-0.3, 0.4, 0);  // Top-right
-    glVertex3f(-0.3, 0.6, 0); // Bottom-right
-    glVertex3f(-0.4, 0.6, 0);  // Bottom-left
-    glEnd();
-    glPopMatrix();
-}
-void DrawFourthWindowSecondPart() {
-    glPushMatrix();
-    glTranslatef(-0.2f, 0, 0.51f); // Move the hinge to the origin
-    glRotatef(windowAngle, 0.0f, 1.0f, 0.0f); // Rotate the door around the y-axis (hinge)
-    glTranslatef(0.2f, 0, 0); // Move the hinge back to its original position
-    // Door
-    glColor3f(1, 0, 1); // white
-    glBegin(GL_POLYGON);
-    glVertex3f(-0.2, 0.4, 0); // Top-left
-    glVertex3f(-0.3, 0.4, 0);  // Top-right
-    glVertex3f(-0.3, 0.6, 0); // Bottom-right
-    glVertex3f(-0.2, 0.6, 0);  // Bottom-left
-    glEnd();
-    glPopMatrix();
-}
+
 void DrawWindow() {
-    // first window
-    DrawBackground(1, 0);
-    DrawFirstWindowFirstPart();
-    DrawFirstWindowSecondPart();
-
-    // second window
-    DrawBackground(-1, 0);
-    DrawSecondWindowFirstPart();
-    DrawSecondWindowSecondPart();
-
-    // third window
-    DrawBackground(1, 0.3);
-    DrawThirdWindowFirstPart();
-    DrawThirdWindowSecondPart();
-
-    // fourth window
-    DrawBackground(-1, 0.3);
-    DrawFourthWindowFirstPart();
-    DrawFourthWindowSecondPart();
+    glPushMatrix();
+    glTranslated(-0.35, 0.5, 0.51);
+    glRotatef(windowAngle * -1, 0.0f, 1.0f, 0.0f);
+    glTranslated((0.1 / 2), 0, 0);
+    DrawCuboid(0.1, 0.2, 0.02, 0.3f, 0.2f, 0.1f, 0.5f);
+    glPopMatrix();
+    DrawBackground( -0.3, 0.5, 0.61);
+    glPushMatrix();
+    glTranslated(-0.15, 0.5, 0.51);
+    glRotatef(windowAngle , 0.0f, 1.0f, 0.0f);
+    glTranslated(-(0.1 / 2), 0, 0);
+    DrawCuboid(0.1, 0.2, 0.02, 0.3f, 0.2f, 0.1f, 0.5f);
+    glPopMatrix();
+    DrawBackground( -0.2, 0.5, 0.61);
+    glPushMatrix();
+    glTranslated(0.35, 0.5, 0.51);
+    glRotatef(windowAngle, 0.0f, 1.0f, 0.0f);
+    glTranslated(-(0.1 / 2), 0, 0);
+    DrawCuboid(0.1, 0.2, 0.02, 0.3f, 0.2f, 0.1f, 0.5f);
+    glPopMatrix();
+    DrawBackground( 0.3, 0.5, 0.61);
+    DrawBackground( 0.2, 0.5, 0.61);
+    glPushMatrix();
+    glTranslated(0.15, 0.5, 0.51);
+    glRotatef(-windowAngle, 0.0f, 1.0f, 0.0f);
+    glTranslated((0.1 / 2), 0, 0);
+    DrawCuboid(0.1, 0.2, 0.02, 0.3f, 0.2f, 0.1f, 0.5f);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslated(0.35, 0.2, 0.51);
+    glRotatef(windowAngle, 0.0f, 1.0f, 0.0f);
+    glTranslated(-(0.1 / 2), 0, 0);
+    DrawCuboid(0.1, 0.2, 0.02, 0.3f, 0.2f, 0.1f, 0.5f);
+    glPopMatrix();
+    DrawBackground(0.3, 0.2, 0.61);
+    glPushMatrix();
+    glTranslated(0.15, 0.2, 0.51);
+    glRotatef(-windowAngle, 0.0f, 1.0f, 0.0f);
+    glTranslated((0.1 / 2), 0, 0);
+    DrawCuboid(0.1, 0.2, 0.02, 0.3f, 0.2f, 0.1f, 0.5f);
+    glPopMatrix();
+    DrawBackground( 0.2, 0.2, 0.61);
+    glPushMatrix();
+    glTranslated(-0.35, 0.2, 0.51);
+    glRotatef(-windowAngle, 0.0f, 1.0f, 0.0f);
+    glTranslated((0.1 / 2), 0, 0);
+    DrawCuboid(0.1, 0.2, 0.02, 0.3f, 0.2f, 0.1f, 0.5f);
+    glPopMatrix();
+    DrawBackground(-0.3, 0.2, 0.61);
+    DrawBackground( -0.2, 0.2, 0.61);
+    glPushMatrix();
+    glTranslated(-0.15, 0.2, 0.51);
+    glRotatef(windowAngle, 0.0f, 1.0f, 0.0f);
+    glTranslated(-(0.1 / 2), 0, 0);
+    DrawCuboid(0.1, 0.2, 0.02, 0.3f, 0.2f, 0.1f, 0.5f);
+    glPopMatrix();
 }
 
 
@@ -547,8 +285,7 @@ void DrawScene()
         0.0, 0.0, 0.0,
         0.0, 1.0, 0.0);
     glTranslated(0, 0, -3);
-    // Draw the ground
-    glColor3f(0.5f, 0.5f, 0.5f); // Gray color for the ground
+    glColor3f(0.5f, 0.5f, 0.5f);
     glBegin(GL_QUADS);
     glVertex3f(-5, -0.9, 5);
     glVertex3f(5, -0.9, 5);
@@ -620,7 +357,7 @@ LRESULT WINAPI  WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
         glViewport(0, 0, w, h);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        gluPerspective(45.0f, (GLfloat)w / (GLfloat)h, 0.1f, 100.0f); // Adjust perspective
+        gluPerspective(45.0f, (GLfloat)w / (GLfloat)h, 0.1f, 100.0f); 
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -700,7 +437,7 @@ LRESULT WINAPI  WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
         break;
     case WM_TIMER:
         if (timerId1) {
-            wheelAngle += 10.0;
+            wheelAngle += 5.0;
             if (wheelAngle >= 360.0)
                 wheelAngle -= 360.0;
         }
@@ -754,3 +491,4 @@ int APIENTRY WinMain(HINSTANCE hi, HINSTANCE pi, LPSTR c, int ns)
     }
     return 0;
 }
+
