@@ -2,6 +2,7 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include<cmath>
+#include <vector>
 #pragma comment(lib,"opengl32.lib")
 #pragma comment(lib,"glu32.lib")
 
@@ -15,6 +16,7 @@ GLfloat wheelAngle = 0.0f;
 float cameraX = 0.0f, cameraY = 0.0f, cameraZ = 5.0f;
 const float PI = 3.14159265358979323846;
 
+
 void DrawByc() {
     glTranslatef(translateByc, 0, 0);
     glRotatef(wheelAngle, 0.0, 1.0, 0.0);
@@ -22,7 +24,7 @@ void DrawByc() {
     glPushMatrix();
     // horizontal down
     //back
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.3, -0.65, 3.0); // Top-left
     glVertex3f(0.3, -0.65, 3.0);  // Top-right
@@ -31,7 +33,7 @@ void DrawByc() {
     glEnd();
 
     //front
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.3, -0.65, 3.01); // Top-left
     glVertex3f(0.3, -0.65, 3.05);  // Top-right
@@ -41,7 +43,7 @@ void DrawByc() {
 
 
     // left
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.3, -0.65, 3.0); // Top-left
     glVertex3f(-0.3, -0.55, 3.0);  // Bottom-left
@@ -51,7 +53,7 @@ void DrawByc() {
 
 
     //right
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(0.3, -0.65, 3.0);  // Top-right
     glVertex3f(0.3, -0.55, 3.0);   // Bottom-right
@@ -60,7 +62,7 @@ void DrawByc() {
     glEnd();
 
     //top
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.3, -0.55, 3.0);  // Top-right
     glVertex3f(-0.3, -0.55, 3.05);   // Bottom-right
@@ -69,7 +71,7 @@ void DrawByc() {
     glEnd();
 
     //Bottom
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.3, -0.65, 3.0);  // Top-right
     glVertex3f(-0.3, -0.65, 3.05);   // Bottom-right
@@ -80,7 +82,7 @@ void DrawByc() {
     //////////////////////////////////////////////////////////////////////
 
     //  vertical left 
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.2, -0.65, 3.0);  // Top-right
     glVertex3f(-0.1, -0.65, 3.0);  // Top-right
@@ -88,7 +90,7 @@ void DrawByc() {
     glVertex3f(-0.2, -0.65, 3.05);   // Bottom-right
     glEnd();
 
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.2, -0.20, 3.0);  // Top-right
     glVertex3f(-0.1, -0.20, 3.0);  // Top-right
@@ -96,7 +98,7 @@ void DrawByc() {
     glVertex3f(-0.2, -0.20, 3.05);   // Bottom-right
     glEnd();
 
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.2, -0.65, 3.0);  // Top-right
     glVertex3f(-0.2, -0.65, 3.05);   // Bottom-right
@@ -104,7 +106,7 @@ void DrawByc() {
     glVertex3f(-0.2, -0.2, 3.0);  // Top-right
     glEnd();
 
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.1, -0.20, 3.05);   // Bottom-right
     glVertex3f(-0.2, -0.20, 3.05);   // Bottom-right
@@ -112,7 +114,7 @@ void DrawByc() {
     glVertex3f(-0.1, -0.65, 3.05);   // Bottom-right
     glEnd();
 
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.1, -0.20, 3.0);
     glVertex3f(-0.2, -0.20, 3.0);
@@ -120,7 +122,7 @@ void DrawByc() {
     glVertex3f(-0.1, -0.65, 3.0);
     glEnd();
 
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.1, -0.20, 3.0);
     glVertex3f(-0.1, -0.20, 3.05);
@@ -131,7 +133,7 @@ void DrawByc() {
     //////////////////////////////////////////////////
     // horizontal up
         //back
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.3, -0.4, 3.0); // Top-left
     glVertex3f(0.3, -0.4, 3.0);  // Top-right
@@ -140,7 +142,7 @@ void DrawByc() {
     glEnd();
 
     //front
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.3, -0.4, 3.1); // Top-left
     glVertex3f(0.3, -0.4, 3.1);  // Top-right
@@ -149,7 +151,7 @@ void DrawByc() {
     glEnd();
 
     // left
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.3, -0.4, 3.0); // Top-left
     glVertex3f(-0.3, -0.3, 3.0);  // Bottom-left
@@ -159,7 +161,7 @@ void DrawByc() {
 
 
     //right
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(0.3, -0.4, 3.0);  // Top-right
     glVertex3f(0.3, -0.3, 3.0);   // Bottom-right
@@ -168,7 +170,7 @@ void DrawByc() {
     glEnd();
 
     //top
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.3, -0.3, 3.0);  // Top-right
     glVertex3f(-0.3, -0.3, 3.1);   // Bottom-right
@@ -177,7 +179,7 @@ void DrawByc() {
     glEnd();
 
     //Bottom
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(-0.3, -0.4, 3.0);  // Top-right
     glVertex3f(-0.3, -0.4, 3.1);   // Bottom-right
@@ -188,7 +190,7 @@ void DrawByc() {
     /////////////////////////////////////////////////
 
     // vertical right
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(0.25, -0.65, 3.0);  // Top-right
     glVertex3f(0.18, -0.65, 3.0);  // Top-right
@@ -196,7 +198,7 @@ void DrawByc() {
     glVertex3f(0.25, -0.65, 3.05);   // Bottom-right
     glEnd();
 
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(0.25, -0.15, 3.0);  // Top-right
     glVertex3f(0.18, -0.15, 3.0);  // Top-right
@@ -204,7 +206,7 @@ void DrawByc() {
     glVertex3f(0.25, -0.15, 3.05);   // Bottom-right
     glEnd();
 
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(0.25, -0.65, 3.0);  // Top-right
     glVertex3f(0.25, -0.65, 3.05);   // Bottom-right
@@ -212,7 +214,7 @@ void DrawByc() {
     glVertex3f(0.25, -0.15, 3.0);  // Top-right
     glEnd();
 
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(0.18, -0.15, 3.05);   // Bottom-right
     glVertex3f(0.25, -0.15, 3.05);   // Bottom-right
@@ -220,7 +222,7 @@ void DrawByc() {
     glVertex3f(0.18, -0.65, 3.05);   // Bottom-right
     glEnd();
 
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(0.18, -0.15, 3.0);
     glVertex3f(0.25, -0.15, 3.0);
@@ -228,7 +230,7 @@ void DrawByc() {
     glVertex3f(0.18, -0.65, 3.0);
     glEnd();
 
-    glColor3f(1, 0, 1);
+    glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
     glVertex3f(0.18, -0.15, 3.0);
     glVertex3f(0.18, -0.15, 3.05);
@@ -251,8 +253,8 @@ void DrawByc() {
     // Translate to the center position
     glTranslatef(centerX, centerY, centerZ); // Move the hinge back to its original position
     glRotatef(wheelLeftAngle, 0.0f, 1.0f, 0.0f);
-    glRotatef(BycAngle, 0.0f, 0.0f, 1.0f); 
- 
+    glRotatef(BycAngle, 0.0f, 0.0f, 1.0f);
+
     // Draw the wheel rim as a 3D circle
     glBegin(GL_QUAD_STRIP);
     for (int i = 0; i <= 36; ++i) {
@@ -308,8 +310,6 @@ void DrawByc() {
     glEnd();
     glPopMatrix();
 }
-
-
 
 void DrawHome()
 {
@@ -383,7 +383,7 @@ void DrawDoorShade() {
     glVertex3f(-0.20, -0.8, 0.50);  // Bottom-left
     glEnd();
 }
-void DrawBackground(double x , double y) {
+void DrawBackground(double x, double y) {
     glPushMatrix();
     glColor4f(0.1f, 0.1f, 0.1f, 0.5f); // gray background color
     glBegin(GL_POLYGON);
@@ -516,7 +516,7 @@ void DrawFourthWindowSecondPart() {
 }
 void DrawWindow() {
     // first window
-    DrawBackground(1, 0 ); 
+    DrawBackground(1, 0);
     DrawFirstWindowFirstPart();
     DrawFirstWindowSecondPart();
 
@@ -550,10 +550,10 @@ void DrawScene()
     // Draw the ground
     glColor3f(0.5f, 0.5f, 0.5f); // Gray color for the ground
     glBegin(GL_QUADS);
-        glVertex3f(-5, -0.9, 5);
-        glVertex3f(5, -0.9, 5);
-        glVertex3f(5, -0.9, -5);
-        glVertex3f(-5, -0.9, -5);
+    glVertex3f(-5, -0.9, 5);
+    glVertex3f(5, -0.9, 5);
+    glVertex3f(5, -0.9, -5);
+    glVertex3f(-5, -0.9, -5);
     glEnd();
     DrawHome();
     glPushMatrix();
@@ -569,7 +569,7 @@ void DrawScene()
     glFlush();
 }
 
-
+UINT_PTR timerId1;
 LRESULT WINAPI  WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
 {
     static PIXELFORMATDESCRIPTOR pfd = {
@@ -597,16 +597,10 @@ LRESULT WINAPI  WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
     static int w, h;
     int  iPixelFormat;
     bool Animation = true;
-
+    
     switch (m)
     {
-    case WM_TIMER:
-        wheelAngle += 10.0;
-        if (wheelAngle >= 360.0)
-            wheelAngle -= 360.0;
-        DrawScene();
-        SwapBuffers(hdc);
-        break;
+    
     case WM_CREATE:
         hdc = GetDC(hwnd);
         iPixelFormat = ChoosePixelFormat(hdc, &pfd);
@@ -636,70 +630,96 @@ LRESULT WINAPI  WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
 
     case WM_KEYDOWN:
         switch (wp) {
-        case 'C': // Move camera left
-            cameraX -= 0.1f;
+        case 'F':
+            if ((GetAsyncKeyState(VK_SHIFT) & 0x8000) || (GetKeyState(VK_CAPITAL) & 0x0001)) // Move camera forward (zoom in)
+            {
+                cameraZ -= 0.1f;
+            }
+            else {
+                translateByc += 0.2;
+                BycAngle += 60.0;
+            }
             break;
-        case 'D': // Move camera right
-            cameraX += 0.1f;
+        case 'B':
+            if ((GetAsyncKeyState(VK_SHIFT) & 0x8000) || (GetKeyState(VK_CAPITAL) & 0x0001)) // Move camera backward (zoom out)
+            {
+               cameraZ += 0.1f;
+            }
+            else {
+                translateByc -= 0.2;
+                BycAngle -= 60.0;
+            }
             break;
-        case 'W': // Move camera up
+        case 'L':
+            if ((GetAsyncKeyState(VK_SHIFT) & 0x8000) || (GetKeyState(VK_CAPITAL) & 0x0001)) // Move camera left
+            {
+                cameraX -= 0.1f;
+            }
+            else { // rotate left wheel
+                wheelLeftAngle = 30.0;
+            }
+            break;
+        case 'R':
+            if ((GetAsyncKeyState(VK_SHIFT) & 0x8000) || (GetKeyState(VK_CAPITAL) & 0x0001)) // Move camera right
+            {
+                cameraX += 0.1f;
+            }
+            else { // rotate right wheel
+                wheelRightAngle = 30.0;
+            }
+            break;
+
+        case 'U': // Move camera up
             cameraY += 0.1f;
             break;
-        case 'S': // Move camera down
+        case 'D': // Move camera down
             cameraY -= 0.1f;
-        break;        
-        case 'Q': // Move camera backward (zoom out)
-            cameraZ -= 0.1f;
             break;
-        case 'E': // Move camera forward (zoom in)
-            cameraZ += 0.1f;
+        case 'O':
+            if ((GetAsyncKeyState(VK_SHIFT) & 0x8000) || (GetKeyState(VK_CAPITAL) & 0x0001)) // open window
+            {
+                windowAngle = 120.0f;
+            }
+            else { // open door
+                doorAngle = 120.0f;
+            }
             break;
-        }
-        break;
-    case WM_PAINT:
-
-        if (GetAsyncKeyState('X') & 0x8000) {
-            doorAngle = 120.0f;
-        }
-        else if (GetAsyncKeyState('Y') & 0x8000) {
-            doorAngle = 0.0f;
-        }
-        else if (GetAsyncKeyState('A') & 0x8000) {
-            windowAngle = 120.0f;
-        }
-        else if (GetAsyncKeyState('K') & 0x8000) {
-            windowAngle = 0.0f;
-        }
-        else if (GetAsyncKeyState('F') & 0x8000) {
-            translateByc += 0.005;
-            BycAngle += 30.0;
-            
-        }
-        else if (GetAsyncKeyState('B') & 0x8000) {
-            translateByc -= 0.005;
-            BycAngle -= 30.0;
-        }
-        else if (GetAsyncKeyState('R') & 0x8000) {
-            wheelRightAngle = 30.0;
-        }
-        else if (GetAsyncKeyState('L') & 0x8000) {
-            wheelLeftAngle = 30.0;
+        case 'C':
+            if ((GetAsyncKeyState(VK_SHIFT) & 0x8000) || (GetKeyState(VK_CAPITAL) & 0x0001)) // close window
+            {
+                windowAngle = 0.0f;
+            }
+            else { // close door
+                doorAngle = 0.0f;
+            }
+            break;
 
         }
         DrawScene();
         SwapBuffers(hdc);
         break;
-    //case WM_LBUTTONDOWN:
-        //SetTimer(hwnd, 1, 500, NULL);
-        //break;
-   
+    case WM_TIMER:
+        if (timerId1) {
+            wheelAngle += 10.0;
+            if (wheelAngle >= 360.0)
+                wheelAngle -= 360.0;
+        }
+        DrawScene();
+        SwapBuffers(hdc);
+        break;
+    case WM_LBUTTONDOWN:
+        timerId1 = SetTimer(hwnd, 1, 60, NULL);
+        break;
+
     case WM_RBUTTONDOWN:
-        //KillTimer(hwnd ,1);
+        KillTimer(hwnd ,1);
+        timerId1 = NULL;
         break;
     case WM_DESTROY:
         wglMakeCurrent(NULL, NULL);
         wglDeleteContext(hgl);
         ReleaseDC(hwnd, hdc);
+        KillTimer(hwnd, 2);
         PostQuitMessage(0);
         break;
     default:
@@ -726,7 +746,7 @@ int APIENTRY WinMain(HINSTANCE hi, HINSTANCE pi, LPSTR c, int ns)
     HWND hwnd = CreateWindow(L"MyClass", L"3D Graphics Scene", WS_OVERLAPPEDWINDOW, 0, 0, 600, 400, NULL, NULL, hi, 0);
     ShowWindow(hwnd, ns);
     UpdateWindow(hwnd);
-    SetTimer(hwnd, 1, 60, NULL);
+    SetTimer(hwnd, 2, 60, NULL);
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);
